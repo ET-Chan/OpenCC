@@ -1,4 +1,4 @@
-# Open Chinese Convert 開放中文轉換
+﻿# Open Chinese Convert 開放中文轉換
 
 ## Introduction 介紹
 
@@ -132,7 +132,7 @@ libraryDependencies ++= 　"opencc-java" % "opencc-java" % "0.0.1"
 將編譯好旳jar及jna-4.1.0加入到你的ClassPath即可，編譯好的jar在./java/out內。
 
 ####使用簡例
-使用前請先確定已經安裝好libopencc.so(opencc.dll)文件。
+使用前請先確定已經安裝好opencc的庫文件。
 
 #####Scala
 
