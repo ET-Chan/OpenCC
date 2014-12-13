@@ -85,6 +85,77 @@ cmake .. -G "Visual Studio 12" -DCMAKE_INSTALL_PREFIX="" -DCMAKE_BUILD_TYPE=Rele
 make
 ```
 
+### Java Wrapper (實驗階段)
+Java API 現在處於實驗階段，穩定性和速度均有待測試。使用前請三思。
+Java API 使用JNA，利用opencc的c api來進行包裝。
+
+####編譯及安裝 (需要sbt 0.13.+ and JRE 7+)
+
+```
+cd  ./java
+sbt package
+```
+
+在maven項目使用，請輸入
+
+```
+sbt publishM2
+```
+
+在sbt項目中使用，則輸入
+
+```
+sbt publishLocal
+```
+####項目文件配置
+
+##### sbt 項目
+在你的build.sbt中加入
+
+```
+libraryDependencies ++= 　"opencc-java" % "opencc-java" % "0.0.1"
+```
+
+#####maven項目
+在你的POMS裡加入
+
+```
+<dependency>
+	<groupId>opencc-java</groupId>
+	<artifactId>opencc-java</artifactId>
+	<version>0.0.1</version>
+</dependency>
+```
+
+####不使用任何Build System
+
+將編譯好旳jar及jna-4.1.0加入到你的ClassPath即可，編譯好的jar在./java/out內。
+
+####使用簡例
+使用前請先確定已經安裝好libopencc.so(opencc.dll)文件。
+
+#####Scala
+
+    import opencc.OpenCCConverter
+    object Main {
+        def main(args: Array[String]) {
+            val converter = new OpenCCConverter("s2t.json")
+            val out = converter.convert("正簡轉換在scala。")
+            println(out)
+        }
+    }
+
+####Java
+
+    import opencc.OpenCCConverter
+    public class OpenCCTester {
+          public static void main(String[] args) {
+              OpenCCConverter c = new OpenCCConverter("s2t.json");
+              System.out.println(c.convert("正簡轉換在Java。"));
+              c.close();
+          }
+    }
+
 ### Projects using Opencc 使用OpenCC的項目
 
 * [ibus-pinyin](http://code.google.com/p/ibus/)
@@ -104,8 +175,9 @@ Apache License 2.0
 * [darts-clone](https://code.google.com/p/darts-clone/) BSD License
 * [tclap](http://tclap.sourceforge.net/) MIT License
 * [rapidjson](https://github.com/miloyip/rapidjson) MIT License
+* [jna](https://github.com/twall/jna) LGPL License
 
-All these libraries are statically linked.
+All these libraries except jna are statically linked.
 
 ## Contributors 貢獻者
 
@@ -131,4 +203,3 @@ All these libraries are statically linked.
 * [steelywing](https://github.com/steelywing)
 * [吕旭东](https://github.com/lvxudong)
 * [Weng Xuetian](https://github.com/wengxt)
-* [Ma Tao](https://github.com/iwater)

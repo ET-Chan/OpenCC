@@ -1,0 +1,7 @@
+target/*
+project/target/*
+project/project/target/*
+.idea/*
+*.json
+*.ocd
+out/*
